@@ -41,13 +41,9 @@ public class VentanaPrincipal extends JFrame {
         setMinimumSize(new Dimension(500, 600));
 
         contentPane = new JPanel();
-        contentPane.setBorder(
-                new EmptyBorder(15, 15, 15, 15)
-        );
+        contentPane.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-        contentPane.setLayout(
-                new BorderLayout(10, 10)
-        );
+        contentPane.setLayout(new BorderLayout(10, 10));
 
         setContentPane(contentPane);
 
@@ -55,27 +51,15 @@ public class VentanaPrincipal extends JFrame {
 
         panelTablero = new PanelTablero();
 
-        contentPane.add(
-                panelTablero,
-                BorderLayout.CENTER
-        );
+        contentPane.add(panelTablero, BorderLayout.CENTER);
 
-        JLabel lblInstrucciones = new JLabel(
-                "Usá las flechas del teclado para mover las fichas"
-        );
+        JLabel lblInstrucciones = new JLabel("Usá las flechas del teclado para mover las fichas");
 
-        lblInstrucciones.setHorizontalAlignment(
-                SwingConstants.CENTER
-        );
+        lblInstrucciones.setHorizontalAlignment(SwingConstants.CENTER);
 
-        lblInstrucciones.setFont(
-                new Font("SansSerif", Font.PLAIN, 14)
-        );
+        lblInstrucciones.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-        contentPane.add(
-                lblInstrucciones,
-                BorderLayout.SOUTH
-        );
+        contentPane.add(lblInstrucciones, BorderLayout.SOUTH);
 
         configurarTeclado();
 
@@ -86,132 +70,69 @@ public class VentanaPrincipal extends JFrame {
 
         JPanel panelSuperior = new JPanel();
 
-        panelSuperior.setLayout(
-                new GridBagLayout()
-        );
+        panelSuperior.setLayout(new GridBagLayout());
 
-        contentPane.add(
-                panelSuperior,
-                BorderLayout.NORTH
-        );
+        contentPane.add(panelSuperior, BorderLayout.NORTH);
 
         JLabel lblTitulo = new JLabel("THREES!");
 
-        lblTitulo.setFont(
-                new Font(
-                        "SansSerif",
-                        Font.BOLD,
-                        32
-                )
-        );
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD,32));
 
-        GridBagConstraints gbcTitulo =
-                new GridBagConstraints();
+        GridBagConstraints gbcTitulo = new GridBagConstraints();
 
         gbcTitulo.gridx = 0;
         gbcTitulo.gridy = 0;
         gbcTitulo.weightx = 1.0;
         gbcTitulo.anchor = GridBagConstraints.WEST;
 
-        gbcTitulo.insets =
-                new Insets(0, 0, 5, 0);
+        gbcTitulo.insets = new Insets(0, 0, 5, 0);
 
-        panelSuperior.add(
-                lblTitulo,
-                gbcTitulo
-        );
+        panelSuperior.add(lblTitulo, gbcTitulo);
 
         lblPuntaje = new JLabel("Puntaje: 0");
 
-        lblPuntaje.setFont(
-                new Font(
-                        "SansSerif",
-                        Font.BOLD,
-                        18
-                )
-        );
+        lblPuntaje.setFont(new Font("SansSerif", Font.BOLD, 18));
 
-        GridBagConstraints gbcPuntaje =
-                new GridBagConstraints();
+        GridBagConstraints gbcPuntaje = new GridBagConstraints();
 
         gbcPuntaje.gridx = 1;
         gbcPuntaje.gridy = 0;
 
-        gbcPuntaje.anchor =
-                GridBagConstraints.EAST;
+        gbcPuntaje.anchor = GridBagConstraints.EAST;
 
-        gbcPuntaje.insets =
-                new Insets(0, 10, 5, 0);
+        gbcPuntaje.insets = new Insets(0, 10, 5, 0);
 
-        panelSuperior.add(
-                lblPuntaje,
-                gbcPuntaje
-        );
+        panelSuperior.add(lblPuntaje, gbcPuntaje);
 
-        JButton btnNuevaPartida =
-                new JButton("Nueva partida");
+        JButton btnNuevaPartida = new JButton("Nueva partida");
 
-        btnNuevaPartida.setFont(
-                new Font(
-                        "SansSerif",
-                        Font.PLAIN,
-                        14
-                )
-        );
+        btnNuevaPartida.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-        btnNuevaPartida.addActionListener(
-                e -> controller.nuevaPartida()
-        );
+        btnNuevaPartida.addActionListener(e -> controller.nuevaPartida());
 
-        GridBagConstraints gbcNuevaPartida =
-                new GridBagConstraints();
+        GridBagConstraints gbcNuevaPartida = new GridBagConstraints();
 
         gbcNuevaPartida.gridx = 1;
         gbcNuevaPartida.gridy = 1;
 
-        gbcNuevaPartida.anchor =
-                GridBagConstraints.EAST;
+        gbcNuevaPartida.anchor = GridBagConstraints.EAST;
 
-        gbcNuevaPartida.insets =
-                new Insets(5, 10, 0, 0);
+        gbcNuevaPartida.insets = new Insets(5, 10, 0, 0);
 
-        panelSuperior.add(
-                btnNuevaPartida,
-                gbcNuevaPartida
-        );
+        panelSuperior.add(btnNuevaPartida,gbcNuevaPartida);
     }
 
     private void configurarTeclado() {
 
         JRootPane rootPane = getRootPane();
 
-        rootPane.getInputMap(
-                JRootPane.WHEN_IN_FOCUSED_WINDOW
-        ).put(
-                KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0),
-                "moverArriba"
-        );
+        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moverArriba");
 
-        rootPane.getInputMap(
-                JRootPane.WHEN_IN_FOCUSED_WINDOW
-        ).put(
-                KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0),
-                "moverAbajo"
-        );
+        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moverAbajo");
 
-        rootPane.getInputMap(
-                JRootPane.WHEN_IN_FOCUSED_WINDOW
-        ).put(
-                KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0),
-                "moverIzquierda"
-        );
+        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moverIzquierda");
 
-        rootPane.getInputMap(
-                JRootPane.WHEN_IN_FOCUSED_WINDOW
-        ).put(
-                KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0),
-                "moverDerecha"
-        );
+        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moverDerecha");
 
         rootPane.getActionMap().put(
                 "moverArriba",
@@ -260,28 +181,19 @@ public class VentanaPrincipal extends JFrame {
 
     public void actualizarPuntaje(int puntaje) {
 
-        lblPuntaje.setText(
-                "Puntaje: " + puntaje
-        );
+        lblPuntaje.setText("Puntaje: " + puntaje);
     }
 
     public void mostrarGameOver() {
 
-        javax.swing.JOptionPane.showMessageDialog(
-                this,
-                "¡Game Over!\nPuntaje: " + 
-                controller.obtenerPuntaje(),
-                "Fin del juego",
-                javax.swing.JOptionPane.INFORMATION_MESSAGE
-        );
+        javax.swing.JOptionPane.showMessageDialog(this, "¡Game Over!\nPuntaje: " + controller.obtenerPuntaje(), "Fin del juego", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void main(String[] args) {
 
         javax.swing.SwingUtilities.invokeLater(() -> {
 
-            VentanaPrincipal ventana =
-                    new VentanaPrincipal();
+            VentanaPrincipal ventana = new VentanaPrincipal();
 
             ventana.setLocationRelativeTo(null);
             ventana.setVisible(true);
