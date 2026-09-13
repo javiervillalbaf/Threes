@@ -238,39 +238,29 @@ public class Tablero {
 
         List<int[]> posiciones = new ArrayList<>();
 
-        switch (direccion) {
+        if (direccion == Direccion.IZQUIERDA) {
 
-            case IZQUIERDA:
+            for (int fila = 0; fila < TAMANIO; fila++) {
+                posiciones.add(new int[]{fila, TAMANIO - 1});
+            }
 
-                for (int fila = 0; fila < TAMANIO; fila++) {
-                    posiciones.add(new int[]{fila, TAMANIO - 1});
-                }
+        } else if (direccion == Direccion.DERECHA) {
 
-                break;
+            for (int fila = 0; fila < TAMANIO; fila++) {
+                posiciones.add(new int[]{fila, 0});
+            }
 
-            case DERECHA:
+        } else if (direccion == Direccion.ARRIBA) {
 
-                for (int fila = 0; fila < TAMANIO; fila++) {
-                    posiciones.add(new int[]{fila, 0});
-                }
+            for (int columna = 0; columna < TAMANIO; columna++) {
+                posiciones.add(new int[]{TAMANIO - 1, columna});
+            }
 
-                break;
+        } else if (direccion == Direccion.ABAJO) {
 
-            case ARRIBA:
-
-                for (int columna = 0; columna < TAMANIO; columna++) {
-                    posiciones.add(new int[]{TAMANIO - 1, columna});
-                }
-
-                break;
-
-            case ABAJO:
-
-                for (int columna = 0; columna < TAMANIO; columna++) {
-                    posiciones.add(new int[]{0, columna});
-                }
-
-                break;
+            for (int columna = 0; columna < TAMANIO; columna++) {
+                posiciones.add(new int[]{0, columna});
+            }
         }
 
         return posiciones;

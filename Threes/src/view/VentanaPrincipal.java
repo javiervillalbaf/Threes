@@ -6,16 +6,14 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -104,11 +102,34 @@ public class VentanaPrincipal extends JFrame {
 
         panelSuperior.add(lblPuntaje, gbcPuntaje);
 
+        JButton btnPuntuaciones = new JButton("Ver puntuaciones");
+
+        btnPuntuaciones.setFont(new Font("SansSerif", Font.PLAIN, 14));
+
+        btnPuntuaciones.addActionListener(e -> {
+            mostrarPuntuaciones();
+            requestFocusInWindow();
+        });
+
+        GridBagConstraints gbcPuntuaciones = new GridBagConstraints();
+
+        gbcPuntuaciones.gridx = 0;
+        gbcPuntuaciones.gridy = 1;
+
+        gbcPuntuaciones.anchor = GridBagConstraints.WEST;
+
+        gbcPuntuaciones.insets = new Insets(5, 0, 0, 0);
+
+        panelSuperior.add(btnPuntuaciones, gbcPuntuaciones);
+
         JButton btnNuevaPartida = new JButton("Nueva partida");
 
         btnNuevaPartida.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
-        btnNuevaPartida.addActionListener(e -> controller.nuevaPartida());
+        btnNuevaPartida.addActionListener(e -> {
+            controller.nuevaPartida();
+            requestFocusInWindow();
+        });
 
         GridBagConstraints gbcNuevaPartida = new GridBagConstraints();
 
@@ -124,55 +145,26 @@ public class VentanaPrincipal extends JFrame {
 
     private void configurarTeclado() {
 
-        JRootPane rootPane = getRootPane();
+        setFocusable(true);
 
-        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "moverArriba");
+        addKeyListener(new KeyAdapter() {
 
-        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moverAbajo");
+            @Override
+            public void keyPressed(KeyEvent e) {
 
-        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moverIzquierda");
+                int tecla = e.getKeyCode();
 
-        rootPane.getInputMap(JRootPane.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moverDerecha");
-
-        rootPane.getActionMap().put(
-                "moverArriba",
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.mover(Direccion.ARRIBA);
-                    }
+                if (tecla == KeyEvent.VK_UP) {
+                    controller.mover(Direccion.ARRIBA);
+                } else if (tecla == KeyEvent.VK_DOWN) {
+                    controller.mover(Direccion.ABAJO);
+                } else if (tecla == KeyEvent.VK_LEFT) {
+                    controller.mover(Direccion.IZQUIERDA);
+                } else if (tecla == KeyEvent.VK_RIGHT) {
+                    controller.mover(Direccion.DERECHA);
                 }
-        );
-
-        rootPane.getActionMap().put(
-                "moverAbajo",
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.mover(Direccion.ABAJO);
-                    }
-                }
-        );
-
-        rootPane.getActionMap().put(
-                "moverIzquierda",
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.mover(Direccion.IZQUIERDA);
-                    }
-                }
-        );
-
-        rootPane.getActionMap().put(
-                "moverDerecha",
-                new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.mover(Direccion.DERECHA);
-                    }
-                }
-        );
+            }
+        });
     }
 
     public PanelTablero getPanelTablero() {
@@ -186,7 +178,23 @@ public class VentanaPrincipal extends JFrame {
 
     public void mostrarGameOver() {
 
-        javax.swing.JOptionPane.showMessageDialog(this, "¡Game Over!\nPuntaje: " + controller.obtenerPuntaje(), "Fin del juego", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        String nombre = JOptionPane.showInputDialog(
+                this,
+                "¡Game Over!\nPuntaje final: " + controller.obtenerPuntaje() + "\n\nIngresá tu nombre para guardar tu puntuación:",
+                "Fin del juego",
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        if (nombre != null && !nombre.isBlank()) {
+            controller.guardarPuntuacion(nombre);
+        }
+    }
+
+    public void mostrarPuntuaciones() {
+
+        VentanaPuntuaciones ventanaPuntuaciones = new VentanaPuntuaciones(this, controller.obtenerPuntuaciones());
+
+        ventanaPuntuaciones.setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -197,6 +205,7 @@ public class VentanaPrincipal extends JFrame {
 
             ventana.setLocationRelativeTo(null);
             ventana.setVisible(true);
+            ventana.requestFocusInWindow();
         });
     }
 }
